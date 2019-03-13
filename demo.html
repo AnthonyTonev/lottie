@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<head>
+    <style>
+        body{
+            background-color:#fff;
+            margin: 0px;
+            height: 100%;
+            overflow: hidden;
+			font-family:"Segoe UI";
+        }
+        #lottie{
+            background-color:#fff;
+            width:50%;
+            height:50%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,-1);
+            text-align: center;
+            opacity: 1;
+        }
+		
+		.button {
+		display: inline-block;
+		padding: 15px 25px;
+		font-size: 20px;
+		cursor: pointer;
+		text-align: center;
+		  font-weight: bold;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #F523B1;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #C41C8E;
+		}
+
+		.button:hover {background-color: #EA69C0}
+
+		.button:active {
+		background-color: #F523B1;
+		box-shadow: 0 5px #C41C8E;
+		transform: translateY(4px);
+		}
+
+
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="lottie.js"></script>
+
+<script type="text/javascript" src="play.json"></script>
+
+<center>
+<div id="lottie"  style="margin-top:-5"></div>
+<button class="button" id="playbtn" onclick="animatingGame()">PLAY GAME</button>
+<p></p>
+<div >
+win : <input type="text" id="percent" value="12" size="1">
+
+</div>
+<center>
+
+
+
+<script>
+
+	var winData;
+
+	// pool of hardcoded values
+	var hardValues = [12,23,66,3,45,6,19,59,16,34];
+
+	//lottie settings
+   var params = {
+        container: document.getElementById('lottie'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: animationJSON
+    };
+
+	//init the animation
+    var anim = lottie.loadAnimation(params);
+	
+	//reset animation with randomise starting values from the pool of hardcoded values 
+	otherTxt();
+	anim.destroy();
+	params.animationData = animationJSON;
+	anim = lottie.loadAnimation(params);
+	
+	function animatingGame(){
+	//get wining data from database
+	winData = document.getElementById("percent").value;
+	
+	//set winning data to the last text layers from after effects
+	textAE(22,winData+"%");
+	textAE(20,winData+"%");
+	textAE(18,winData+"%");
+	
+	//reset animation with winning value
+	params.animationData = animationJSON;
+	anim.destroy();
+    anim = lottie.loadAnimation(params);
+	anim.play();
+	otherTxt();
+	}
+
+	//function for manipulating text values of after effects layers
+	function textAE(n,val){
+	return animationJSON.layers[1].layers[n].t.d.k[0].s.t = val;
+	}
+
+	//randomising the other text values from the pool of hardcoded values	
+	function otherTxt(){
+	for(let t = 16; t>=0; t-=2){
+	textAE(t,hardValues[Math.floor((Math.random() * 10))] + "%");
+		}	
+	}
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
