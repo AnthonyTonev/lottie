@@ -72,7 +72,7 @@ win : <input type="text" id="percent" value="12" size="1">
 	var hardValues = [12,23,66,3,45,6,19,59,16,34];
 
 	//lottie settings
-  	 var params = {
+  	var params = {
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: false,
@@ -81,7 +81,7 @@ win : <input type="text" id="percent" value="12" size="1">
     	};
 
 	//init the animation
-   	 var anim = lottie.loadAnimation(params);
+   	var anim = lottie.loadAnimation(params);
 	
 	//reset animation with randomise starting values from the pool of hardcoded values 
 	otherTxt();
