@@ -20,29 +20,29 @@
             opacity: 1;
         }
 		
-		.button {
-		display: inline-block;
-		padding: 15px 25px;
-		font-size: 20px;
-		cursor: pointer;
-		text-align: center;
-		  font-weight: bold;
-		text-decoration: none;
-		outline: none;
-		color: #fff;
-		background-color: #F523B1;
-		border: none;
-		border-radius: 15px;
-		box-shadow: 0 9px #C41C8E;
-		}
+	.button {
+	display: inline-block;
+	padding: 15px 25px;
+	font-size: 20px;
+	cursor: pointer;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #F523B1;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #C41C8E;
+	}
 
-		.button:hover {background-color: #EA69C0}
+	.button:hover {background-color: #EA69C0}
 
-		.button:active {
-		background-color: #F523B1;
-		box-shadow: 0 5px #C41C8E;
-		transform: translateY(4px);
-		}
+	.button:active {
+	background-color: #F523B1;
+	box-shadow: 0 5px #C41C8E;
+	transform: translateY(4px);
+	}
 
 
     </style>
@@ -72,16 +72,16 @@ win : <input type="text" id="percent" value="12" size="1">
 	var hardValues = [12,23,66,3,45,6,19,59,16,34];
 
 	//lottie settings
-   var params = {
+  	 var params = {
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: false,
         autoplay: false,
         animationData: animationJSON
-    };
+    	};
 
 	//init the animation
-    var anim = lottie.loadAnimation(params);
+   	 var anim = lottie.loadAnimation(params);
 	
 	//reset animation with randomise starting values from the pool of hardcoded values 
 	otherTxt();
@@ -101,7 +101,7 @@ win : <input type="text" id="percent" value="12" size="1">
 	//reset animation with winning value
 	params.animationData = animationJSON;
 	anim.destroy();
-    anim = lottie.loadAnimation(params);
+  	anim = lottie.loadAnimation(params);
 	anim.play();
 	otherTxt();
 	}
