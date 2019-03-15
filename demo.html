@@ -10,55 +10,114 @@
 			font-family:"Segoe UI";
         }
         #lottie{
-            background-color:#fff;
+            background-color:transparent;
+            width:50%;
+            height:50%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,+1);
+            text-align: center;
+			z-index:-1;
+            opacity: 1;
+        }
+		     #win{
+			  position:absolute; 
+			 left:25%;top:-2%;
+            background-color:transparent;
             width:50%;
             height:50%;
             display:block;
             overflow: hidden;
             transform: translate3d(0,0,-1);
             text-align: center;
+			z-index:1;
+            opacity: 1;
+        }
+		     #bg{
+			  position:absolute; 
+			 left:25%;top:0px;
+            background-color:transparent;
+            width:50%;
+            height:50%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,-1);
+            text-align: center;
+			z-index:-1;
             opacity: 1;
         }
 		
-	.button {
-	display: inline-block;
-	padding: 15px 25px;
-	font-size: 20px;
-	cursor: pointer;
-	text-align: center;
-	font-weight: bold;
-	text-decoration: none;
-	outline: none;
-	color: #fff;
-	background-color: #F523B1;
-	border: none;
-	border-radius: 15px;
-	box-shadow: 0 9px #C41C8E;
-	}
+		.button {
+		opacity: 1;
+		transition: opacity 1s; 
+		 position:absolute; 
+		display: inline-block;
+		 left:45.5%;top:39%;
+		padding: 15px 25px;
+		font-size: 20px;
+		cursor: pointer;
+		z-index:1;
+		text-align: center;
+		  font-weight: bold;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #F523B1;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #C41C8E;
+		}
 
-	.button:hover {background-color: #EA69C0}
+		.button:hover {background-color: #EA69C0}
 
-	.button:active {
-	background-color: #F523B1;
-	box-shadow: 0 5px #C41C8E;
-	transform: translateY(4px);
-	}
+		.button:active {
+		background-color: #F523B1;
+		box-shadow: 0 5px #C41C8E;
+		transform: translateY(4px);
+		}
+
+#playbtn {
+  opacity: 1;
+  transition: opacity 1s; 
+}
+
+#playbtn.fade {
+  opacity: 0;
+}
+
+
+
+#lottie {
+  opacity: 1;
+  transition: opacity 1s; 
+}
+
+#lottie.fade {
+  opacity: 0;
+}
+
+
 
 
     </style>
 </head>
 <body>
 <script type="text/javascript" src="lottie.js"></script>
-
-<script type="text/javascript" src="play.json"></script>
-
+<script type="text/javascript" src="bg.json"></script>
+<script type="text/javascript" src="start.json"></script>
+<script type="text/javascript" src="victory.json"></script>
 <center>
+<div id="bg"  style="margin-top:-5"></div>
 <div id="lottie"  style="margin-top:-5"></div>
+
+<div id="win"  style="margin-bottom:-900px;"></div>
+
 <button class="button" id="playbtn" onclick="animatingGame()">PLAY GAME</button>
 <p></p>
 <div >
 win : <input type="text" id="percent" value="12" size="1">
-
+<p></p>
+Discount Code : <input type="text" id="discount" value="Join WooHoo!" size="12">
 </div>
 <center>
 
@@ -67,55 +126,94 @@ win : <input type="text" id="percent" value="12" size="1">
 <script>
 
 	var winData;
-
+	var discountCode;
 	// pool of hardcoded values
 	var hardValues = [12,23,66,3,45,6,19,59,16,34];
 
 	//lottie settings
-  	var params = {
+   var params = {
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: false,
         autoplay: false,
-        animationData: animationJSON
-    	};
-		/*	   ^ animationJSON
-			   is the name of the variable 
-			   in which I passed the object 
-			   storing lottie JSON file
-		*/    
-			
-		
+        animationData: startJSON
+    };
+	
+	   var vicPara = {
+        container: document.getElementById('win'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: victoryJSON
+    };
+	
+	
+	 var bgpara = {
+        container: document.getElementById('bg'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: bgJSON
+    };
 	
 	//init the animation
-   	var anim = lottie.loadAnimation(params);
-	
+	var bg = lottie.loadAnimation(bgpara);
+    var anim = lottie.loadAnimation(params);
+	var victoryScreen = lottie.loadAnimation(vicPara);
+	var buttonPlay = document.getElementById("playbtn");
 	//reset animation with randomise starting values from the pool of hardcoded values 
 	otherTxt();
 	anim.destroy();
-	params.animationData = animationJSON;
+	params.animationData = startJSON;
 	anim = lottie.loadAnimation(params);
 	
 	function animatingGame(){
-	//get winning data from database
+	//get wining data from database
 	winData = document.getElementById("percent").value;
-	
+	discountCode =  document.getElementById("discount").value;
 	//set winning data to the last text layers from after effects
 	textAE(22,winData+"%");
 	textAE(20,winData+"%");
 	textAE(18,winData+"%");
 	
 	//reset animation with winning value
-	params.animationData = animationJSON;
+	params.animationData = startJSON;
 	anim.destroy();
-  	anim = lottie.loadAnimation(params);
+    anim = lottie.loadAnimation(params);
 	anim.play();
 	otherTxt();
+	
+	victoryJSON.layers[6].t.d.k[0].s.t = winData+"%";
+	victoryJSON.layers[8].t.d.k[0].s.t = discountCode;
+	vicPara.animationData = victoryJSON;
+	victoryScreen.destroy();
+	victoryScreen = lottie.loadAnimation(vicPara);
+
+	setTimeout(() => {
+	
+	buttonPlay.disabled=true;
+	buttonPlay.style = "background-color: LightGray;box-shadow: 0 9px gray";
+	
+	}, 100);
+	clearTimeout();
+	
+	setTimeout(() => {
+	
+	
+		params.container.classList.toggle('fade');
+	  buttonPlay.classList.toggle('fade');
+	victoryScreen.play();
+	
+
+	}, 3000);
+	clearTimeout();
+	
+	
 	}
 
 	//function for manipulating text values of after effects layers
 	function textAE(n,val){
-	return animationJSON.layers[1].layers[n].t.d.k[0].s.t = val;
+	return startJSON.layers[1].layers[n].t.d.k[0].s.t = val;
 	}
 
 	//randomising the other text values from the pool of hardcoded values	
@@ -125,6 +223,29 @@ win : <input type="text" id="percent" value="12" size="1">
 		}	
 	}
 
+	
+
+	
+	
+	
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
