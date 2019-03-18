@@ -149,7 +149,7 @@ win : <input type="text" id="win_data" value="12" size="1">
 	//picks a random value for the other text values from the pool of hardcoded values
 	function slotTxt(n=8){
 	//set random values to the text layers in after effects
-	for(let t = 16; t>=0; t-=2){
+	for(var t = 16; t>=0; t-=2){
 	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%");
 		}	
 	}
