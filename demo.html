@@ -55,22 +55,22 @@
 
     </style>
 </head>
-<body>
+<body>	
+<!--lottie player/library -->	
 <script type="text/javascript" src="lottie.js"></script>
+	
+<!-- animation is stored in a variable from this file -->	
 <script type="text/javascript" src="slots.json"></script>
+	
 <p></p>
 <center>
-
+	
+<!-- lottie container for the animation-->	
 <div id="lottie"  style="margin-top:-5">
-
-
-
-
 
 </div>
 
-
-
+	
 <div>
 
 <button class="button" id="playbtn" onclick="animatingGame()">PLAY GAME</button>
@@ -78,7 +78,6 @@
 win : <input type="text" id="win_data" value="12" size="1">
 </div>
 <center>
-
 
 
 <script>
@@ -101,7 +100,7 @@ win : <input type="text" id="win_data" value="12" size="1">
 
 	
 	//init the animation
-    var anim = lottie.loadAnimation(params);
+        var anim = lottie.loadAnimation(params);
 	
 	/* reset animation with randomise starting values from the pool of hardcoded values 
 	   if the json file is preloaded - this destruction can be avoided */
