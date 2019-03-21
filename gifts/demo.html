@@ -1,0 +1,380 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<head>
+    <style>
+        body{
+            background-color:#fff;
+            margin: 0px;
+            height: 100%;
+            overflow: hidden;
+			font-family:"Segoe UI";
+        }
+  
+			
+	    #lottie0{
+            background-color:transparent;
+            width:40%;
+            height:25%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(-10,0,+1);
+            text-align: center;
+			z-index:-1;
+            opacity: 1;
+        }
+		      #lottie1{
+            background-color:transparent;
+            width:40%;
+            height:25%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,+1);
+            text-align: center;
+			z-index:-1;
+            opacity: 1;
+        }
+	#lottie2{
+            background-color:transparent;
+            width:40%;
+            height:25%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(10,0,+1);
+            text-align: center;
+			z-index:-1;
+            opacity: 1;
+        }
+			
+			
+		.button {
+		opacity: 0;
+		transition: opacity 1s; 
+		position:absolute; 
+		display: inline-block;
+		left:46%;top:11%;
+		padding: 15px 25px;
+		font-size: 0px;
+		cursor: pointer;
+		z-index:1;
+		text-align: center;
+	    font-weight: bold;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #F523B1;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #C41C8E;
+		width:8%;
+        height:12%;
+		}
+
+		.button:hover {background-color: #EA69C0}
+
+		.button:active {
+		background-color: #F523B1;
+		box-shadow: 0 5px #C41C8E;
+		transform: translateY(4px);
+		}
+
+		.buttoncol {
+		opacity: 1;
+		width:8%;
+		height:6%;
+		transition: opacity 1s; 
+		 position:absolute; 
+		display: inline-block;
+		 left:45.5%;top:39%;
+		padding: 15px 25px;
+		font-size: 20px;
+		cursor: pointer;
+		z-index:1;
+		text-align: center;
+		  font-weight: bold;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #F523B1;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #C41C8E;
+		}
+
+		.buttoncol:hover {background-color: #EA69C0}
+
+		.buttoncol:active {
+		background-color: #F523B1;
+		box-shadow: 0 5px #C41C8E;
+		transform: translateY(4px);
+		}
+
+#button0{
+left:36.5%;top:11%;
+}
+
+#button2{
+left:55.5%;top:11%;
+}
+
+
+    </style>
+</head>
+<body>	
+<!--lottie player/library -->	
+<script type="text/javascript" src="lottie.js"></script>
+<!-- animation is stored in a variable from this file -->
+
+<script type="text/javascript" src="gifthover.json"></script>
+<script type="text/javascript" src="giftopen.json"></script>
+
+<p></p>
+<center>
+	
+<!-- lottie container for the animation-->	
+<div  id="lottie1"  style="margin-top:20"></div>
+<div  id="lottie0"  style="margin-top:-210;margin-left:-250"></div>
+<div  id="lottie2"  style="margin-top:-203;margin-left:250"></div>
+
+<div>
+<button style="margin-top:10px" class="button" id="button0" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
+<button style="margin-top:10px" class="button" id="button1" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
+<button style="margin-top:10px" class="button" id="button2" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
+
+<p></p>
+
+ <input spellcheck="false" type="text" id="win_data" value="12" size="1" style="visibility:hidden">
+ribbon : <input spellcheck="false" type="text" id="hexInputRibbon" value="#DA4453" size="5" maxlength="7">
+box : <input spellcheck="false" type="text" id="hexInputBox" value="#8CC153" size="5" maxlength="7" >
+shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F59" size="5" maxlength="7" >
+<p></p>
+
+<button style="margin-top:10px" class="buttoncol" id="changeCol"  onclick="setColors()">hex</button>
+</div>
+<center>
+
+
+<script>
+    var boxes=[];
+	var winData;
+	var clickedBox=false;
+	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
+	var hardValues = [12,23,66,3,45,6,19,59];
+	
+	var buttonPlay = document.getElementById("playbtn");
+	
+	//lottie settings
+   var params = [
+	{
+        container: document.getElementById('lottie0'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
+    },{
+        container: document.getElementById('lottie1'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
+    },{
+        container: document.getElementById('lottie2'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
+    }];
+
+
+	
+	//init the animation
+        var anim = [lottie.loadAnimation(params[0]),lottie.loadAnimation(params[1]),lottie.loadAnimation(params[2])];
+	  
+	/* reset animation with randomise starting values from the pool of hardcoded values 
+	   if the json file is preloaded - this destruction can be avoided */
+
+	   
+	 
+
+	anim[0].destroy();
+	params[0].animationData = giftHoverJSON; 
+	anim[0] = lottie.loadAnimation(params[0]);
+	  
+	 	anim[1].destroy();
+        params[1].animationData = giftHoverJSON; 
+        anim[1] = lottie.loadAnimation(params[1]);
+
+		anim[2].destroy();
+	params[2].animationData = giftHoverJSON; 
+	anim[2] = lottie.loadAnimation(params[2]);
+	
+	let hexInputRibbon = document.getElementById("hexInputRibbon").value;
+	let hexInputBox = document.getElementById("hexInputBox").value;
+	let hexInputShadow=document.getElementById("hexInputShadow").value;
+	
+	function animatingGame(id){
+	
+	clickedBox=true;
+	id=+id.slice(-1);
+	
+  
+	//get wining data from database or in this case from the input
+	winData = document.getElementById("win_data").value;
+	/*
+	set winning data to the last text layers from after effects
+	first param is the index of the text layer in after effects 
+	second param is the new text 
+
+		*/
+		
+	//reset animation 
+	anim[id].destroy();
+	
+
+	//pass the new animation with the winning data and play it
+	//colorAE(hexInputRibbon,hexInputBox);
+
+
+	params[id].animationData = giftOpenJSON; 
+    anim[id] = lottie.loadAnimation(params[id]);
+	anim[id].play();
+	
+	//set new random values to slots for a new game;
+setTimeout(function(){clickedBox=false; }, 1000);clearTimeout();
+
+	
+	
+	}
+	
+		function animateHover(id){
+	    id=+id.slice(-1);
+		
+     
+		
+	//reset animation 
+	anim[id].destroy();
+		
+
+
+	//pass the new animation with the winning data and play it
+	params[id].animationData = giftHoverJSON; 
+    anim[id] = lottie.loadAnimation(params[id]);
+	anim[id].play();
+
+	
+	}
+	
+	
+	
+	
+	
+	
+	/*
+	function for manipulating text values of after effects layers
+	first argument is the layer number in after effects
+	second argument is the value  */
+
+	function textAE(n,val){
+	//the path to the text prop in the json file - it represents the layer tree in after effects
+	return gameJSON.layers[1].layers[n].t.d.k[0].s.t = val;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function setColors(){
+	colorAE(giftHoverJSON);
+	colorAE(giftOpenJSON);
+	
+	}
+	
+	
+	
+	function colorAE(file){
+	//the path to the text prop in the json file - it represents the layer tree in after effects
+
+
+	 hexInputRibbon = document.getElementById("hexInputRibbon").value;
+	 hexInputBox = document.getElementById("hexInputBox").value;
+	 hexInputShadow = document.getElementById("hexInputShadow").value;
+	 
+	 let ribbon = hexInputRibbon;
+	 let box = hexInputBox;
+	 let shadow = hexInputShadow;
+ 
+	file.assets[0].layers[0].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
+	file.assets[0].layers[3].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
+	file.assets[0].layers[5].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
+	
+	file.assets[0].layers[1].shapes[1].c.k = hex2RGB(box).map(n=>n/255);
+	file.assets[0].layers[4].shapes[1].c.k = hex2RGB(box).map(n=>n/255);
+	
+		file.assets[0].layers[2].shapes[1].c.k = hex2RGB(shadow).map(n=>n/255);
+
+	
+			
+	
+		
+		
+			for(let i = 0; i<=2;i+=1){
+		anim[i].destroy();
+		params[i].animationData = file;
+		anim[i] = lottie.loadAnimation(params[i]);
+			}
+	
+		
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//picks a random value for the other text values from the pool of hardcoded values
+	function slotTxt(n=8){
+	//set random values to the text layers in after effects
+	for(var t = 16; t>=0; t-=2){
+	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%");
+		}	
+	}
+
+	
+
+	
+	
+const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
+
+const hex2RGB = str => {
+  const [ , short, long ] = String(str).match(RGB_HEX) || [];
+
+  if (long) {
+    const value = Number.parseInt(long, 16);
+    return [ value >> 16, value >> 8 & 0xFF, value & 0xFF ];
+  } else if (short) {
+    return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
+  }
+};
+
+setTimeout(function(){animateHover("b"+(Math.floor(Math.random()*2)+1)); }, 100);clearTimeout();
+
+
+setInterval(function(){if(!clickedBox){ animateHover("b"+(Math.floor(Math.random()*2)+1)); }}, 5000);clearInterval();
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
