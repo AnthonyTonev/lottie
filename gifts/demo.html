@@ -8,51 +8,118 @@
             height: 100%;
             overflow: hidden;
 			font-family:"Segoe UI";
+			background-color:#eeeeee;
         }
   
-			
-	    #lottie0{
-            background-color:transparent;
-            width:40%;
-            height:25%;
-            display:block;
-            overflow: hidden;
-            transform: translate3d(-10,0,+1);
-            text-align: center;
-			z-index:-1;
-            opacity: 1;
-        }
-		      #lottie1{
-            background-color:transparent;
-            width:40%;
-            height:25%;
-            display:block;
+			.lottieclass{
+			display: inline-block;	
+			background-color:transparent;
+            width:5%;
+            height:15%;
             overflow: hidden;
             transform: translate3d(0,0,+1);
             text-align: center;
 			z-index:-1;
             opacity: 1;
-        }
-	#lottie2{
-            background-color:transparent;
-            width:40%;
-            height:25%;
-            display:block;
-            overflow: hidden;
-            transform: translate3d(10,0,+1);
-            text-align: center;
-			z-index:-1;
-            opacity: 1;
-        }
 			
+			}
+		
+			.victory{
+			background-color:transparent;
+            width:54%;
+            height:50%;
+            overflow: hidden;
+			left:23%;
+            text-align: center;
+			z-index:1;
+			position: absolute;
+			top: 10%;
+            opacity: 1;
+			
+
+			}
+		
+		#lottie0{
+
+		  -webkit-animation: jump 0.8s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 0.6s cubic-bezier(0.3, 1.2, 0.3 1.2);
+  
+		}
+			
+		#lottie1{
+  
+	
+		  -webkit-animation: 
+		  jump 1s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 1s cubic-bezier(0.3, 1.2, 0.3 1.2);
+  	  
+
+
+    
+		}
+		
+		
+		
+			#lottie2{
+			
+	
+		  -webkit-animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		}
+		
+			#lottie3{
+			
+	
+		  -webkit-animation: jump 1.4s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		}
+		
+		
+			#lottie4{
+			
+	
+		  -webkit-animation: jump 1.6s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		}
+		
+		
+		
+	.giftbutton{
+			
+			background-color:transparent;
+            width:4%;
+            height:5%;
+            overflow: hidden;
+            text-align: center;
+			z-index:1;
+			position: absolute;
+			top: 18%;
+            opacity: 0;
+		
+	}
+				
+#button0{
+left:37.3%;
+}
+#button1{
+left:42.5%;
+}
+#button2{
+left:47.9%;
+}
+#button3{
+left:53.3%;
+}
+#button4{
+left:58.6%;
+}
+
+
 			
 		.button {
 		opacity: 0;
 		transition: opacity 1s; 
 		position:absolute; 
-		display: inline-block;
-		left:46%;top:11%;
-		padding: 15px 25px;
 		font-size: 0px;
 		cursor: pointer;
 		z-index:1;
@@ -79,13 +146,10 @@
 
 		.buttoncol {
 		opacity: 1;
-		width:8%;
-		height:6%;
+		width:5%;
+		height:3%;
 		transition: opacity 1s; 
-		 position:absolute; 
-		display: inline-block;
-		 left:45.5%;top:39%;
-		padding: 15px 25px;
+	
 		font-size: 20px;
 		cursor: pointer;
 		z-index:1;
@@ -108,179 +172,244 @@
 		transform: translateY(4px);
 		}
 
-#button0{
-left:36.5%;top:11%;
+	
+@-webkit-keyframes comedown {
+
+  0% {
+    transform: translateY(0%;);
+  }
+  100% {
+    transform: translateY(30%);
+  }
+}
+@keyframes comedownmp {
+
+  0% {
+    transform: translateY(0%;);
+  }
+  100% {
+    transform: translateY(30%);
+  }
+}
+	
+@-webkit-keyframes jump {
+   from { opacity: 0; }
+    to   { opacity: 1; }
+  0% {
+    transform: translateY(600px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes jump {
+   from { opacity: 0; }
+    to   { opacity: 1; }
+  0% {
+    transform: translateY(600px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
-#button2{
-left:55.5%;top:11%;
+@-webkit-keyframes fadeout {
+   from { opacity: 1; }
+    to   { opacity: 0.3; }
+
 }
 
 
     </style>
 </head>
 <body>	
+
 <!--lottie player/library -->	
 <script type="text/javascript" src="lottie.js"></script>
 <!-- animation is stored in a variable from this file -->
 
 <script type="text/javascript" src="gifthover.json"></script>
 <script type="text/javascript" src="giftopen.json"></script>
-
+<script type="text/javascript" src="victory.json"></script>
 <p></p>
 <center>
-	
+	<div id="giftcomp" style="margin-top:5%"> 
 <!-- lottie container for the animation-->	
-<div  id="lottie1"  style="margin-top:20"></div>
-<div  id="lottie0"  style="margin-top:-210;margin-left:-250"></div>
-<div  id="lottie2"  style="margin-top:-203;margin-left:250"></div>
 
+<div class="lottieclass" id="lottie0" ></div>
+<div  class="lottieclass" id="lottie1" ></div>
+<div  class="lottieclass" id="lottie2" ></div>
+<div class="lottieclass" id="lottie3" ></div>
+<div  class="lottieclass" id="lottie4" ></div>
+<div  class="victory" id="victory" ></div>
+				
+
+<!--ticketPos(12.3)ticketPos(18.5)ticketPos(22.9)ticketPos(28.3)ticketPos(33.6)-->
 <div>
-<button style="margin-top:10px" class="button" id="button0" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
-<button style="margin-top:10px" class="button" id="button1" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
-<button style="margin-top:10px" class="button" id="button2" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id)">PLAY GAME</button>
+<button class="giftbutton" id="button0" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
+<button class="giftbutton" id="button1" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
+<button class="giftbutton" id="button2" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
+<button class="giftbutton" id="button3" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
+<button class="giftbutton" id="button4" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
 
 <p></p>
-
- <input spellcheck="false" type="text" id="win_data" value="12" size="1" style="visibility:hidden">
+</div>
+<div style="margin-top:20%">
 ribbon : <input spellcheck="false" type="text" id="hexInputRibbon" value="#DA4453" size="5" maxlength="7">
 box : <input spellcheck="false" type="text" id="hexInputBox" value="#8CC153" size="5" maxlength="7" >
 shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F59" size="5" maxlength="7" >
 <p></p>
 
-<button style="margin-top:10px" class="buttoncol" id="changeCol"  onclick="setColors()">hex</button>
-</div>
+<button class="buttoncol" id="changeCol"  onclick="setColors()">hex</button>
+
+
+<p></p>
+
+ win :<input spellcheck="false" type="text" id="win_data" value="12" size="1" >
+ dis_code: <input type="text" id="discount" value="Join WooHoo!" size="12">
+ </div>
 <center>
 
 
 <script>
+
+
+const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
+
+const hex2RGB = str => {
+  const [ , short, long ] = String(str).match(RGB_HEX) || [];
+
+  if (long) {
+    const value = Number.parseInt(long, 16);
+    return [ value >> 16, value >> 8 & 0xFF, value & 0xFF ];
+  } else if (short) {
+    return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
+  }
+};
+
+
+
+
+
+
     var boxes=[];
 	var winData;
+	
 	var clickedBox=false;
+	var stopHover=false;
 	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
 	var hardValues = [12,23,66,3,45,6,19,59];
 	
 	var buttonPlay = document.getElementById("playbtn");
 	
-	//lottie settings
-   var params = [
-	{
-        container: document.getElementById('lottie0'),
-        renderer: 'svg',
-        loop: false,
-        autoplay: false,
-        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
-    },{
-        container: document.getElementById('lottie1'),
-        renderer: 'svg',
-        loop: false,
-        autoplay: false,
-        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
-    },{
-        container: document.getElementById('lottie2'),
-        renderer: 'svg',
-        loop: false,
-        autoplay: false,
-        animationData: giftHoverJSON //this value stores the json data from the json file. it is defined in the json file.
-    }];
-
-
-	
-	//init the animation
-        var anim = [lottie.loadAnimation(params[0]),lottie.loadAnimation(params[1]),lottie.loadAnimation(params[2])];
-	  
-	/* reset animation with randomise starting values from the pool of hardcoded values 
-	   if the json file is preloaded - this destruction can be avoided */
-
-	   
-	 
-
-	anim[0].destroy();
-	params[0].animationData = giftHoverJSON; 
-	anim[0] = lottie.loadAnimation(params[0]);
-	  
-	 	anim[1].destroy();
-        params[1].animationData = giftHoverJSON; 
-        anim[1] = lottie.loadAnimation(params[1]);
-
-		anim[2].destroy();
-	params[2].animationData = giftHoverJSON; 
-	anim[2] = lottie.loadAnimation(params[2]);
-	
 	let hexInputRibbon = document.getElementById("hexInputRibbon").value;
 	let hexInputBox = document.getElementById("hexInputBox").value;
 	let hexInputShadow=document.getElementById("hexInputShadow").value;
 	
+
+	   	//lottie settings
+		var params = [];
+        var anim = [];
+		
+	var vicPara = {
+        container: document.getElementById('victory'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: victoryJSON
+    };
+		var victoryScreen = lottie.loadAnimation(vicPara);
+		
+		for(let i=0; i<=4;i+=1){
+		params[i]=	{
+        container: document.getElementById('lottie'+i),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: giftHoverJSON 
+		};
+		
+		
+	
+		
+	function ticketPos(pos){	
+	 document.getElementById('victory').style=`left:${pos}%`
+	
+	}
+	
+			
+		anim[i]=lottie.loadAnimation(params[i]);
+		anim[i] = lottie.loadAnimation(params[i]);
+		
+		setTimeout(function(){	setColors(giftHoverJSON); }, 15);clearTimeout();
+
+	
+		}
+
+
+	  
+	
+
 	function animatingGame(id){
 	
 	clickedBox=true;
 	id=+id.slice(-1);
-	
+		
   
 	//get wining data from database or in this case from the input
 	winData = document.getElementById("win_data").value;
-	/*
-	set winning data to the last text layers from after effects
-	first param is the index of the text layer in after effects 
-	second param is the new text 
-
-		*/
+	discountCode =  document.getElementById("discount").value;
 		
+
+	
+	victoryJSON.layers[0].t.d.k[0].s.t = winData+"%";
+	victoryJSON.layers[1].t.d.k[0].s.t = discountCode;
+	vicPara.animationData = victoryJSON;
+	victoryScreen.destroy();
+	victoryScreen = lottie.loadAnimation(vicPara);
+	
+	victoryScreen.play();
+	
 	//reset animation 
 	anim[id].destroy();
-	
-
-	//pass the new animation with the winning data and play it
-	//colorAE(hexInputRibbon,hexInputBox);
-
-
 	params[id].animationData = giftOpenJSON; 
     anim[id] = lottie.loadAnimation(params[id]);
 	anim[id].play();
 	
-	//set new random values to slots for a new game;
-setTimeout(function(){clickedBox=false; }, 1000);clearTimeout();
+	setTimeout(function(){clickedBox=false;	stopHover=true; }, 1000);clearTimeout();
 
 	
+	for(let i =0;i<=5;i+=1){
+	if(i!=id){
+	fade(document.getElementById("lottie"+i));
+	
+	anim[i].pause();
+	document.getElementById("button"+i).disabled=true;
+	}
+	
+	}	
+		
 	
 	}
 	
+	
+	
+	
+	
+	
 		function animateHover(id){
-	    id=+id.slice(-1);
+	if(!stopHover){
 		
-     
-		
+	 id=+id.slice(-1);
 	//reset animation 
 	anim[id].destroy();
 		
-
-
 	//pass the new animation with the winning data and play it
 	params[id].animationData = giftHoverJSON; 
     anim[id] = lottie.loadAnimation(params[id]);
 	anim[id].play();
-
-	
+		}
 	}
-	
-	
-	
-	
-	
-	
-	/*
-	function for manipulating text values of after effects layers
-	first argument is the layer number in after effects
-	second argument is the value  */
-
-	function textAE(n,val){
-	//the path to the text prop in the json file - it represents the layer tree in after effects
-	return gameJSON.layers[1].layers[n].t.d.k[0].s.t = val;
-	}
-
-	
-	
-	
 	
 	
 	
@@ -321,7 +450,7 @@ setTimeout(function(){clickedBox=false; }, 1000);clearTimeout();
 	
 		
 		
-			for(let i = 0; i<=2;i+=1){
+			for(let i = 0; i<=4;i+=1){
 		anim[i].destroy();
 		params[i].animationData = file;
 		anim[i] = lottie.loadAnimation(params[i]);
@@ -333,44 +462,49 @@ setTimeout(function(){clickedBox=false; }, 1000);clearTimeout();
 	
 	
 	
+
 	
-	
-	
-	
-	
-	//picks a random value for the other text values from the pool of hardcoded values
-	function slotTxt(n=8){
-	//set random values to the text layers in after effects
-	for(var t = 16; t>=0; t-=2){
-	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%");
+	//function for manipulating text values of after effects layers
+	function textAE(n,val){
+	return startJSON.layers[1].layers[n].t.d.k[0].s.t = val;
+	}
+
+	//randomising the other text values from the pool of hardcoded values	
+	function otherTxt(){
+	for(let t = 16; t>=0; t-=2){
+	textAE(t,hardValues[Math.floor((Math.random() * 10))] + "%");
 		}	
 	}
 
 	
+	
+		function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.5){
+            clearInterval(timer);
+            //element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+		}, 50);
+	}
 
 	
+	setTimeout(function(){animateHover("b"+4); }, 150);clearTimeout();
 	
-const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
+	setTimeout(function(){animateHover("b"+3); }, 140);clearTimeout();	
 
-const hex2RGB = str => {
-  const [ , short, long ] = String(str).match(RGB_HEX) || [];
+	setTimeout(function(){animateHover("b"+2); }, 100);clearTimeout();	
 
-  if (long) {
-    const value = Number.parseInt(long, 16);
-    return [ value >> 16, value >> 8 & 0xFF, value & 0xFF ];
-  } else if (short) {
-    return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
-  }
-};
+	setTimeout(function(){animateHover("b"+1); }, 123);clearTimeout();
 
-setTimeout(function(){animateHover("b"+(Math.floor(Math.random()*2)+1)); }, 100);clearTimeout();
+	setTimeout(function(){animateHover("b"+0); }, 80);clearTimeout();
 
 
-setInterval(function(){if(!clickedBox){ animateHover("b"+(Math.floor(Math.random()*2)+1)); }}, 5000);clearInterval();
-
-
-
-
+	if(!stopHover)
+	setInterval(function(){if(!clickedBox){ animateHover("b"+(Math.floor(Math.random()*2)+1)); }}, 5000);clearInterval();
 
 
 
