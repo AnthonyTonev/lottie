@@ -32,7 +32,7 @@
 		cursor: pointer;
 		z-index:1;
 		text-align: center;
-	        font-weight: bold;
+	    font-weight: bold;
 		text-decoration: none;
 		outline: none;
 		color: #fff;
@@ -89,13 +89,13 @@ win : <input type="text" id="win_data" value="12" size="1">
 	var buttonPlay = document.getElementById("playbtn");
 	
 	//lottie settings
-        var params = {
+   var params = {
         container: document.getElementById('lottie'),
         renderer: 'svg',
         loop: false,
         autoplay: false,
         animationData: gameJSON //this value stores the json data from the json file. it is defined in the json file.
-        };
+    };
 
 
 	
@@ -103,7 +103,7 @@ win : <input type="text" id="win_data" value="12" size="1">
         var anim = lottie.loadAnimation(params);
 	
 	/* reset animation with randomise starting values from the pool of hardcoded values 
-	   if the animation json file is changed before it is loaded - this destruction can be avoided */
+	   if the json file is preloaded - this destruction can be avoided */
 	slotTxt();
 	anim.destroy();
 	params.animationData = gameJSON; 
@@ -127,11 +127,13 @@ win : <input type="text" id="win_data" value="12" size="1">
 	
 	//pass the new animation with the winning data and play it
 	params.animationData = gameJSON; 
-        anim = lottie.loadAnimation(params);
+    anim = lottie.loadAnimation(params);
 	anim.play();
 	
 	//set new random values to slots for a new game;
 	slotTxt();
+	
+	
 	}
 	
 	/*
@@ -149,10 +151,25 @@ win : <input type="text" id="win_data" value="12" size="1">
 	//set random values to the text layers in after effects
 	for(var t = 16; t>=0; t-=2){
 	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%");
-	   }	
+		}	
 	}
 
 	
+const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
+
+const hex2RGB = str => {
+  const [ , short, long ] = String(str).match(RGB_HEX) || [];
+
+  if (long) {
+    const value = Number.parseInt(long, 16);
+    return [ value >> 16, value >> 8 & 0xFF, value & 0xFF ];
+  } else if (short) {
+    return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
+  }
+};
+
+
+
 </script>
 </body>
 </html>
