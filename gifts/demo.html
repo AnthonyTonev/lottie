@@ -352,10 +352,10 @@ const hex2RGB = str => {
 
 	function animatingGame(id){
 	
+	if(!stopHover){
 	clickedBox=true;
 	id=+id.slice(-1);
 		
-  
 	//get wining data from database or in this case from the input
 	winData = document.getElementById("win_data").value;
 	discountCode =  document.getElementById("discount").value;
@@ -385,11 +385,11 @@ const hex2RGB = str => {
 	
 	anim[i].pause();
 	document.getElementById("button"+i).disabled=true;
-	}
+				}
 	
-	}	
+			}	
 		
-	
+		}
 	}
 	
 	
