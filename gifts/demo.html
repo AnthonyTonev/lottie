@@ -243,8 +243,6 @@ left:58.6%;
 <div  class="lottieclass" id="lottie4" ></div>
 <div  class="victory" id="victory" ></div>
 				
-
-<!--ticketPos(12.3)ticketPos(18.5)ticketPos(22.9)ticketPos(28.3)ticketPos(33.6)-->
 <div>
 <button class="giftbutton" id="button0" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
 <button class="giftbutton" id="button1" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
@@ -380,9 +378,8 @@ const hex2RGB = str => {
 
 	
 	for(let i =0;i<=5;i+=1){
-	if(i!=id){
+	if(i!=id && anim[i]){
 	fade(document.getElementById("lottie"+i));
-	
 	anim[i].pause();
 	document.getElementById("button"+i).disabled=true;
 				}
@@ -480,15 +477,25 @@ const hex2RGB = str => {
 	
 		function fade(element) {
     var op = 1;  // initial opacity
-    var timer = setInterval(function () {
-        if (op <= 0.5){
+
+	  var timer = setInterval(function () {
+		  if (op <= 0.5){
+	
             clearInterval(timer);
+				
             //element.style.display = 'none';
-        }
-        element.style.opacity = op;
+        }else{
+		if(element){
+		element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
+			}
+		
+		}
+     
 		}, 50);
+	 
+  
 	}
 
 	
