@@ -224,7 +224,7 @@
 <div  class="lottieclass" id="lottie2" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
 <div class="lottieclass" id="lottie3" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
 <div  class="lottieclass" id="lottie4" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)"onmouseout="resetHover()" ></div>
-<div  class="victory" id="victory" ></div>
+<div  class="victory" id="victory"  ></div>
 				
 
 <!--ticketPos(12.3)ticketPos(18.5)ticketPos(22.9)ticketPos(28.3)ticketPos(33.6)-->
@@ -251,257 +251,245 @@ shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F5
 
 <script>
 
+//rgb to hex converter (because after effects works with rgb)
+var RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
 
-	
-	
-	
-	
-const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
+var hex2RGB = str => {
+    var [, short, long] = String(str).match(RGB_HEX) || [];
 
-const hex2RGB = str => {
-  const [ , short, long ] = String(str).match(RGB_HEX) || [];
-
-  if (long) {
-    const value = Number.parseInt(long, 16);
-    return [ value >> 16, value >> 8 & 0xFF, value & 0xFF ];
-  } else if (short) {
-    return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
-  }
+    if (long) {
+        var value = Number.parseInt(long, 16);
+        return [value >> 16, value >> 8 & 0xFF, value & 0xFF];
+    } else if (short) {
+        return Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n);
+    }
 };
 
 
 
+var boxes = [];
+var winData;
+var gameOver = false;
+var clickCheck = false;
+var stopHover = false;
+// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
+var hardValues = [12, 23, 66, 3, 45, 6, 19, 59];
+
+var buttonPlay = document.getElementById("playbtn");
+
+let hexInputRibbon = document.getElementById("hexInputRibbon").value;
+let hexInputBox = document.getElementById("hexInputBox").value;
+let hexInputShadow = document.getElementById("hexInputShadow").value;
 
 
+//lottie settings
+var params = [];
+var anim = [];
 
-    var boxes=[];
-	var winData;
-	var gameOver = false;
-	var clickCheck=false;
-	var stopHover=false;
-	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
-	var hardValues = [12,23,66,3,45,6,19,59];
-	
-	var buttonPlay = document.getElementById("playbtn");
-	
-	let hexInputRibbon = document.getElementById("hexInputRibbon").value;
-	let hexInputBox = document.getElementById("hexInputBox").value;
-	let hexInputShadow=document.getElementById("hexInputShadow").value;
-	
+var vicPara = {
+    container: document.getElementById('victory'),
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    animationData: victoryJSON
+};
+var victoryScreen = lottie.loadAnimation(vicPara);
 
-	   	//lottie settings
-		var params = [];
-        var anim = [];
-		
-	var vicPara = {
-        container: document.getElementById('victory'),
+for (let i = 0; i <= 4; i += 1) {
+    params[i] = {
+        container: document.getElementById('lottie' + i),
         renderer: 'svg',
         loop: false,
         autoplay: false,
-        animationData: victoryJSON
+        animationData: giftHoverJSON
     };
-		var victoryScreen = lottie.loadAnimation(vicPara);
-		
-		for(let i=0; i<=4;i+=1){
-		params[i]=	{
-        container: document.getElementById('lottie'+i),
-        renderer: 'svg',
-        loop: false,
-        autoplay: false,
-        animationData: giftHoverJSON 
-		};
-		
-		
-	
-		
-	function ticketPos(pos){	
-	 document.getElementById('victory').style=`left:${pos}%`
-	
-	}
-	
-			
-		anim[i] =lottie.loadAnimation(params[i]);
-		anim[i] = lottie.loadAnimation(params[i]);
-		
-		setTimeout(function(){	setColors(giftHoverJSON); }, 15);clearTimeout();
-
-	
-		}
 
 
-	  
-	
-
-	function animatingGame(id){
-	
-	if(!gameOver){
-	
-	clickCheck = true;
-	stopHover = true;
-	
-		id=+id.slice(-1);
-		setTimeout(function(){	
-		
-		
-
-		
-	//get wining data from database or in this case from the input
-	winData = document.getElementById("win_data").value;
-	discountCode =  document.getElementById("discount").value;
-		
-
-	
-	victoryJSON.layers[0].t.d.k[0].s.t = winData+"%";
-	victoryJSON.layers[2].t.d.k[0].s.t = discountCode;
-	vicPara.animationData = victoryJSON;
-	victoryScreen.destroy();
-	victoryScreen = lottie.loadAnimation(vicPara);
-	
-	victoryScreen.play();
-	
-	//reset animation 
-	anim[id].destroy();
-	params[id].animationData = giftOpenJSON; 
-    anim[id] = lottie.loadAnimation(params[id]);
-	anim[id].play();
-	
-
-	
-	for(let i =0;i<=5;i+=1){
-	if(i!=id && anim[i]){
-	fade(document.getElementById("lottie"+i));
-	anim[i].pause();
-	
-			
-	
-					}	
-		
-				}
-			gameOver=  true;
-			}, 100);clearTimeout();
-		 }
-	}
-	
-	
-	
-	function resetHover(){
-	stopHover = false;
-	}
-	
-	
-		function animateHover(id){
-	if(!stopHover && !clickCheck){
-		
-	 id=+id.slice(-1);
-	//reset animation 
-	anim[id].destroy();
-		
-	//pass the new animation with the winning data and play it
-	params[id].animationData = giftHoverJSON; 
-    anim[id] = lottie.loadAnimation(params[id]);
-	anim[id].play();
-	stopHover = true;
-	
-	
-		}
-	}
-	
-	
-	
-	
-	
-	
-	function setColors(){
-	colorAE(giftHoverJSON);
-	colorAE(giftOpenJSON);
-	
-	}
-	
-	
-	
-	function colorAE(file){
-	//the path to the text prop in the json file - it represents the layer tree in after effects
 
 
-	 hexInputRibbon = document.getElementById("hexInputRibbon").value;
-	 hexInputBox = document.getElementById("hexInputBox").value;
-	 hexInputShadow = document.getElementById("hexInputShadow").value;
-	 
-	 let ribbon = hexInputRibbon;
-	 let box = hexInputBox;
-	 let shadow = hexInputShadow;
- 
-	file.assets[0].layers[0].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
-	file.assets[0].layers[3].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
-	file.assets[0].layers[5].shapes[1].c.k = hex2RGB(ribbon).map(n=>n/255);
-	
-	file.assets[0].layers[1].shapes[1].c.k = hex2RGB(box).map(n=>n/255);
-	file.assets[0].layers[4].shapes[1].c.k = hex2RGB(box).map(n=>n/255);
-	
-		file.assets[0].layers[2].shapes[1].c.k = hex2RGB(shadow).map(n=>n/255);
+    function ticketPos(pos) {
+        document.getElementById('victory').style = `left:${pos}%`
 
-	
-			
-	
-		
-		
-			for(let i = 0; i<=4;i+=1){
-		anim[i].destroy();
-		params[i].animationData = file;
-		anim[i] = lottie.loadAnimation(params[i]);
-			}
-	
-		
+    }
 
-	}
-	
-	
-	
 
-	
-	//function for manipulating text values of after effects layers
-	function textAE(n,val){
-	return startJSON.layers[1].layers[n].t.d.k[0].s.t = val;
-	}
+    anim[i] = lottie.loadAnimation(params[i]);
+    anim[i] = lottie.loadAnimation(params[i]);
 
-	//randomising the other text values from the pool of hardcoded values	
-	function otherTxt(){
-	for(let t = 16; t>=0; t-=2){
-	textAE(t,hardValues[Math.floor((Math.random() * 10))] + "%");
-		}	
-	}
+    setTimeout(function () {
+        setColors(giftHoverJSON);
+    }, 15);
+    clearTimeout();
 
-	
-	
-		function fade(element) {
-    var op = 1;  // initial opacity
 
-	  var timer = setInterval(function () {
-		  if (op <= 0.5){
-	
+}
+
+
+
+
+
+function animatingGame(id) {
+
+    if (!gameOver) {
+
+        clickCheck = true;
+        stopHover = true;
+
+        id = +id.slice(-1);
+        setTimeout(function () {
+
+            //get wining data from database or in this case from the input
+            winData = document.getElementById("win_data").value;
+            discountCode = document.getElementById("discount").value;
+
+            victoryJSON.layers[0].t.d.k[0].s.t = winData + "%";
+            victoryJSON.layers[2].t.d.k[0].s.t = discountCode;
+            vicPara.animationData = victoryJSON;
+            victoryScreen.destroy();
+            victoryScreen = lottie.loadAnimation(vicPara);
+            victoryScreen.play();
+
+            //reset animation 
+            anim[id].destroy();
+            params[id].animationData = giftOpenJSON;
+            anim[id] = lottie.loadAnimation(params[id]);
+            anim[id].play();
+
+            for (let i = 0; i <= 5; i += 1) {
+                if (i != id && anim[i]) {
+                    fade(document.getElementById("lottie" + i));
+                    anim[i].pause();
+                    document.getElementById("victory").style = "z-index:+1";
+                }
+            }
+            gameOver = true;
+        }, 100);
+        clearTimeout();
+    }
+}
+
+
+
+function resetHover() {
+    stopHover = false;
+}
+
+
+function animateHover(id) {
+    if (!stopHover && !clickCheck) {
+
+        id = +id.slice(-1);
+        //reset animation 
+        anim[id].destroy();
+
+        //pass the new animation with the winning data and play it
+        params[id].animationData = giftHoverJSON;
+        anim[id] = lottie.loadAnimation(params[id]);
+        anim[id].play();
+        stopHover = true;
+
+
+    }
+}
+
+
+
+
+
+
+function setColors() {
+    colorAE(giftHoverJSON);
+    colorAE(giftOpenJSON);
+
+}
+
+
+
+function colorAE(file) {
+    //the path to the text prop in the json file - it represents the layer tree in after effects
+
+
+    hexInputRibbon = document.getElementById("hexInputRibbon").value;
+    hexInputBox = document.getElementById("hexInputBox").value;
+    hexInputShadow = document.getElementById("hexInputShadow").value;
+
+    let ribbon = hexInputRibbon;
+    let box = hexInputBox;
+    let shadow = hexInputShadow;
+
+    file.assets[0].layers[0].shapes[1].c.k = hex2RGB(ribbon).map(n => n / 255);
+    file.assets[0].layers[3].shapes[1].c.k = hex2RGB(ribbon).map(n => n / 255);
+    file.assets[0].layers[5].shapes[1].c.k = hex2RGB(ribbon).map(n => n / 255);
+    file.assets[0].layers[1].shapes[1].c.k = hex2RGB(box).map(n => n / 255);
+    file.assets[0].layers[4].shapes[1].c.k = hex2RGB(box).map(n => n / 255);
+    file.assets[0].layers[2].shapes[1].c.k = hex2RGB(shadow).map(n => n / 255);
+
+
+
+
+
+
+    for (let i = 0; i <= 4; i += 1) {
+        anim[i].destroy();
+        params[i].animationData = file;
+        anim[i] = lottie.loadAnimation(params[i]);
+    }
+
+
+
+}
+
+
+
+
+
+//function for manipulating text values of after effects layers
+function textAE(n, val) {
+    return startJSON.layers[1].layers[n].t.d.k[0].s.t = val;
+}
+
+//randomising the other text values from the pool of hardcoded values	
+function otherTxt() {
+    for (let t = 16; t >= 0; t -= 2) {
+        textAE(t, hardValues[Math.floor((Math.random() * 10))] + "%");
+    }
+}
+
+
+
+function fade(element) {
+    var op = 1; // initial opacity
+
+    var timer = setInterval(function () {
+        if (op <= 0.5) {
+
             clearInterval(timer);
-				
+
             //element.style.display = 'none';
-        }else{
-		if(element){
-		element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-			}
-		
-		}
-     
-		}, 50);
-	 
-  
-	}
+        } else {
+            if (element) {
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op -= op * 0.1;
+            }
+
+        }
+
+    }, 50);
+
+
+}
 
 
 
 
-	if(!stopHover && !clickCheck){
-	setInterval(function(){ animateHover("b"+(Math.floor(Math.random()*2)+1)); resetHover();}, 3000);clearInterval();
-	}
+if (!stopHover && !clickCheck) {
+    setInterval(function () {
+        animateHover("b" + (Math.floor(Math.random() * 2) + 1));
+        resetHover();
+    }, 3000);
+    clearInterval();
+}
 
 
 </script>
