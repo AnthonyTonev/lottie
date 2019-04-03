@@ -19,7 +19,7 @@
             overflow: hidden;
             transform: translate3d(0,0,+1);
             text-align: center;
-			z-index:-1;
+			z-index: -1;
             opacity: 1;
 			
 			}
@@ -31,7 +31,7 @@
             overflow: hidden;
 			left:23%;
             text-align: center;
-			z-index:1;
+			z-index:-1;
 			position: absolute;
 			top: 10%;
             opacity: 1;
@@ -41,17 +41,16 @@
 		
 		#lottie0{
 
-		  -webkit-animation: jump 0.8s cubic-bezier(0.3, 1.2, 0.8, 1.2);
-  animation: jump 0.6s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		  -webkit-animation: jump 0.3s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+		animation: jump 0.3s cubic-bezier(0.3, 1.2, 0.3 1.2);
   
 		}
 			
 		#lottie1{
   
 	
-		  -webkit-animation: 
-		  jump 1s cubic-bezier(0.3, 1.2, 0.8, 1.2);
-  animation: jump 1s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		  -webkit-animation: jump 0.4s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+		animation: jump 0.4s cubic-bezier(0.3, 1.2, 0.3 1.2);
   	  
 
 
@@ -59,27 +58,25 @@
 		}
 		
 		
-		
 			#lottie2{
-			
-	
-		  -webkit-animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.8, 1.2);
-  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		
+		  -webkit-animation: jump 0.5s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+			animation: jump 0.5s cubic-bezier(0.3, 1.2, 0.3 1.2);
 		}
 		
 			#lottie3{
 			
 	
-		  -webkit-animation: jump 1.4s cubic-bezier(0.3, 1.2, 0.8, 1.2);
-  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		  -webkit-animation: jump 0.6s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump 0.6s cubic-bezier(0.3, 1.2, 0.3 1.2);
 		}
 		
 		
 			#lottie4{
 			
 	
-		  -webkit-animation: jump 1.6s cubic-bezier(0.3, 1.2, 0.8, 1.2);
-  animation: jump 1.2s cubic-bezier(0.3, 1.2, 0.3 1.2);
+		  -webkit-animation: jump 0.7s cubic-bezier(0.3, 1.2, 0.8, 1.2);
+  animation: jump  0.7s cubic-bezier(0.3, 1.2, 0.3 1.2);
 		}
 		
 		
@@ -91,28 +88,14 @@
             height:5%;
             overflow: hidden;
             text-align: center;
-			z-index:1;
+			z-index:-1;
 			position: absolute;
 			top: 18%;
             opacity: 0;
 		
 	}
 				
-#button0{
-left:37.3%;
-}
-#button1{
-left:42.5%;
-}
-#button2{
-left:47.9%;
-}
-#button3{
-left:53.3%;
-}
-#button4{
-left:58.6%;
-}
+
 
 
 			
@@ -196,7 +179,7 @@ left:58.6%;
    from { opacity: 0; }
     to   { opacity: 1; }
   0% {
-    transform: translateY(600px);
+    transform: translateY(150px);
   }
   100% {
     transform: translateY(0px);
@@ -206,7 +189,7 @@ left:58.6%;
    from { opacity: 0; }
     to   { opacity: 1; }
   0% {
-    transform: translateY(600px);
+    transform: translateY(150px);
   }
   100% {
     transform: translateY(0px);
@@ -236,19 +219,16 @@ left:58.6%;
 	<div id="giftcomp" style="margin-top:5%"> 
 <!-- lottie container for the animation-->	
 
-<div class="lottieclass" id="lottie0" ></div>
-<div  class="lottieclass" id="lottie1" ></div>
-<div  class="lottieclass" id="lottie2" ></div>
-<div class="lottieclass" id="lottie3" ></div>
-<div  class="lottieclass" id="lottie4" ></div>
+<div class="lottieclass" id="lottie0" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie1" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie2" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div class="lottieclass" id="lottie3" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie4" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)"onmouseout="resetHover()" ></div>
 <div  class="victory" id="victory" ></div>
 				
+
+<!--ticketPos(12.3)ticketPos(18.5)ticketPos(22.9)ticketPos(28.3)ticketPos(33.6)-->
 <div>
-<button class="giftbutton" id="button0" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
-<button class="giftbutton" id="button1" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
-<button class="giftbutton" id="button2" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
-<button class="giftbutton" id="button3" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
-<button class="giftbutton" id="button4" onmouseover="animateHover(this.id)" onclick="animatingGame(this.id);">PLAY GAME</button>
 
 <p></p>
 </div>
@@ -272,6 +252,10 @@ shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F5
 <script>
 
 
+	
+	
+	
+	
 const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
 
 const hex2RGB = str => {
@@ -292,8 +276,8 @@ const hex2RGB = str => {
 
     var boxes=[];
 	var winData;
-	
-	var clickedBox=false;
+	var gameOver = false;
+	var clickCheck=false;
 	var stopHover=false;
 	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
 	var hardValues = [12,23,66,3,45,6,19,59];
@@ -336,7 +320,7 @@ const hex2RGB = str => {
 	}
 	
 			
-		anim[i]=lottie.loadAnimation(params[i]);
+		anim[i] =lottie.loadAnimation(params[i]);
 		anim[i] = lottie.loadAnimation(params[i]);
 		
 		setTimeout(function(){	setColors(giftHoverJSON); }, 15);clearTimeout();
@@ -350,9 +334,16 @@ const hex2RGB = str => {
 
 	function animatingGame(id){
 	
-	if(!stopHover){
-	clickedBox=true;
-	id=+id.slice(-1);
+	if(!gameOver){
+	
+	clickCheck = true;
+	stopHover = true;
+	
+		id=+id.slice(-1);
+		setTimeout(function(){	
+		
+		
+
 		
 	//get wining data from database or in this case from the input
 	winData = document.getElementById("win_data").value;
@@ -374,28 +365,32 @@ const hex2RGB = str => {
     anim[id] = lottie.loadAnimation(params[id]);
 	anim[id].play();
 	
-	setTimeout(function(){clickedBox=false;	stopHover=true; }, 1000);clearTimeout();
 
 	
 	for(let i =0;i<=5;i+=1){
 	if(i!=id && anim[i]){
 	fade(document.getElementById("lottie"+i));
 	anim[i].pause();
-	document.getElementById("button"+i).disabled=true;
-				}
 	
-			}	
+			
+	
+					}	
 		
-		}
+				}
+			gameOver=  true;
+			}, 100);clearTimeout();
+		 }
 	}
 	
 	
 	
-	
+	function resetHover(){
+	stopHover = false;
+	}
 	
 	
 		function animateHover(id){
-	if(!stopHover){
+	if(!stopHover && !clickCheck){
 		
 	 id=+id.slice(-1);
 	//reset animation 
@@ -405,6 +400,9 @@ const hex2RGB = str => {
 	params[id].animationData = giftHoverJSON; 
     anim[id] = lottie.loadAnimation(params[id]);
 	anim[id].play();
+	stopHover = true;
+	
+	
 		}
 	}
 	
@@ -498,21 +496,12 @@ const hex2RGB = str => {
   
 	}
 
-	
-	setTimeout(function(){animateHover("b"+4); }, 150);clearTimeout();
-	
-	setTimeout(function(){animateHover("b"+3); }, 140);clearTimeout();	
-
-	setTimeout(function(){animateHover("b"+2); }, 100);clearTimeout();	
-
-	setTimeout(function(){animateHover("b"+1); }, 123);clearTimeout();
-
-	setTimeout(function(){animateHover("b"+0); }, 80);clearTimeout();
 
 
-	if(!stopHover)
-	setInterval(function(){if(!clickedBox){ animateHover("b"+(Math.floor(Math.random()*2)+1)); }}, 5000);clearInterval();
 
+	if(!stopHover && !clickCheck){
+	setInterval(function(){ animateHover("b"+(Math.floor(Math.random()*2)+1)); resetHover();}, 3000);clearInterval();
+	}
 
 
 </script>
