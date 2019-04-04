@@ -201,11 +201,11 @@
 	<div id="giftcomp" style="margin-top:5%"> 
 <!-- lottie container for the animation-->	
 
-<div class="lottieclass" id="lottie0"   onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie1"  onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie2"  onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div class="lottieclass" id="lottie3"   onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie4"  onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()" ></div>
+<div class="lottieclass" id="lottie0"  ontouchstart="animatingGame(this.id)" onmousedown="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie1" ontouchstart="animatingGame(this.id)" onmousedown="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie2" ontouchstart="animatingGame(this.id)" onmousedown="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div class="lottieclass" id="lottie3"  ontouchstart="animatingGame(this.id)" onmousedown="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie4" ontouchstart="animatingGame(this.id)" onmousedown="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()" ></div>
 <div  class="victory" id="victory"  ></div>
 				
 
@@ -327,9 +327,10 @@ function animatingGame(id) {
         stopHover = true;
 		
 		id = +id.slice(-1);
-		 
+		
 	
-       
+        setTimeout(function () {
+
             //get wining data from database or in this case from the input
             winData = document.getElementById("win_data").value;
             discountCode = document.getElementById("discount").value;
@@ -342,7 +343,6 @@ function animatingGame(id) {
             victoryScreen.play();
 
             //reset animation 
-			
             anim[id].destroy();
             params[id].animationData = giftOpenJSON;
             anim[id] = lottie.loadAnimation(params[id]);
@@ -356,6 +356,8 @@ function animatingGame(id) {
                 }
             }
             gameOver = true;
+        }, 100);
+        clearTimeout();
     }
 	
 }
@@ -364,7 +366,7 @@ function animatingGame(id) {
 
 function resetHover() {
 	if(!clickCheck && stopHover){
-         stopHover = false;
+    stopHover = false;
 	}
 }
 
@@ -374,14 +376,12 @@ function animateHover(id) {
 
         id = +id.slice(-1);
         //reset animation 
-		
         anim[id].destroy();
 
         //pass the new animation with the winning data and play it
         params[id].animationData = giftHoverJSON;
         anim[id] = lottie.loadAnimation(params[id]);
         anim[id].play();
-		
         stopHover = true;
 			
 
