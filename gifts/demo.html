@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body{
             background-color:#fff;
@@ -14,8 +15,8 @@
 			.lottieclass{
 			display: inline-block;	
 			background-color:transparent;
-            width:5%;
-            height:15%;
+			width: 20%;
+			height: 100%;
             overflow: hidden;
             transform: translate3d(0,0,+1);
             text-align: center;
@@ -38,6 +39,18 @@
 			
 
 			}
+		
+		#giftcomp {
+		white-space: nowrap;
+		width: 30%;
+		}
+		
+		@media only screen and (max-width: 600px) {
+		#giftcomp {
+        white-space: nowrap;
+        width: 85%;
+		}
+		}  
 		
 		#lottie0{
 
@@ -79,10 +92,6 @@
   animation: jump  0.7s cubic-bezier(0.3, 1.2, 0.3 1.2);
 		}
 		
-		
-
-
-
 			
 		.button {
 		opacity: 0;
@@ -212,10 +221,13 @@
 <div  class="victory" id="victory"  ></div>
 				
 
-<!--ticketPos(12.3)ticketPos(18.5)ticketPos(22.9)ticketPos(28.3)ticketPos(33.6)-->
+
 <div>
 
 <p></p>
+
+
+<!-- color editor inputs -->
 </div>
 <div style="margin-top:20%">
 ribbon : <input spellcheck="false" type="text" id="hexInputRibbon" value="#DA4453" size="5" maxlength="7">
@@ -228,6 +240,7 @@ shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F5
 
 <p></p>
 
+<!-- data inputs -->
  win :<input spellcheck="false" type="text" id="win_data" value="12" size="1" >
  dis_code: <input type="text" id="discount" value="Join WooHoo!" size="12">
  </div>
