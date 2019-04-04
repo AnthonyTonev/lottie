@@ -201,11 +201,11 @@
 	<div id="giftcomp" style="margin-top:5%"> 
 <!-- lottie container for the animation-->	
 
-<div class="lottieclass" id="lottie0"  onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie1" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie2" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div class="lottieclass" id="lottie3"  onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
-<div  class="lottieclass" id="lottie4" onclick="animatingGame(this.id)" onmouseover="animateHover(this.id)" onmouseout="resetHover()" ></div>
+<div class="lottieclass" id="lottie0"  onclick="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie1" onclick="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie2" onclick="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div class="lottieclass" id="lottie3"  onclick="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()"></div>
+<div  class="lottieclass" id="lottie4" onclick="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmousedown="animatingGame(this.id);this.removeAttribute('onmouseover');this.removeAttribute('onmouseout')" onmouseover="animateHover(this.id)" onmouseout="resetHover()" ></div>
 <div  class="victory" id="victory"  ></div>
 				
 
@@ -236,6 +236,13 @@ shadow : <input spellcheck="false" type="text" id="hexInputShadow" value="#5D5F5
 
 
 <script>
+
+
+
+
+
+
+
 
 //rgb to hex converter (because after effects works with rgb)
 var RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i;
@@ -282,21 +289,19 @@ var vicPara = {
 var victoryScreen = lottie.loadAnimation(vicPara);
 
 for (let i = 0; i <= 4; i += 1) {
+
+
+var elem=document.getElementById('lottie' + i);
+
+
     params[i] = {
-        container: document.getElementById('lottie' + i),
+        container: elem,
         renderer: 'svg',
         loop: false,
         autoplay: false,
         animationData: giftHoverJSON
     };
 
-
-
-
-    function ticketPos(pos) {
-        document.getElementById('victory').style = `left:${pos}%`
-
-    }
 
 
     anim[i] = lottie.loadAnimation(params[i]);
@@ -313,17 +318,18 @@ for (let i = 0; i <= 4; i += 1) {
 
 
 
-
 function animatingGame(id) {
 
     if (!gameOver) {
-
+			
+		
         clickCheck = true;
         stopHover = true;
-
-        id = +id.slice(-1);
-        setTimeout(function () {
-
+		
+		id = +id.slice(-1);
+		 
+	
+       
             //get wining data from database or in this case from the input
             winData = document.getElementById("win_data").value;
             discountCode = document.getElementById("discount").value;
@@ -336,6 +342,7 @@ function animatingGame(id) {
             victoryScreen.play();
 
             //reset animation 
+			
             anim[id].destroy();
             params[id].animationData = giftOpenJSON;
             anim[id] = lottie.loadAnimation(params[id]);
@@ -349,15 +356,16 @@ function animatingGame(id) {
                 }
             }
             gameOver = true;
-        }, 100);
-        clearTimeout();
     }
+	
 }
 
 
 
 function resetHover() {
-    stopHover = false;
+	if(!clickCheck && stopHover){
+         stopHover = false;
+	}
 }
 
 
@@ -366,14 +374,16 @@ function animateHover(id) {
 
         id = +id.slice(-1);
         //reset animation 
+		
         anim[id].destroy();
 
         //pass the new animation with the winning data and play it
         params[id].animationData = giftHoverJSON;
         anim[id] = lottie.loadAnimation(params[id]);
         anim[id].play();
+		
         stopHover = true;
-
+			
 
     }
 }
@@ -409,10 +419,6 @@ function colorAE(file) {
     file.assets[0].layers[1].shapes[1].c.k = hex2RGB(box).map(n => n / 255);
     file.assets[0].layers[4].shapes[1].c.k = hex2RGB(box).map(n => n / 255);
     file.assets[0].layers[2].shapes[1].c.k = hex2RGB(shadow).map(n => n / 255);
-
-
-
-
 
 
     for (let i = 0; i <= 4; i += 1) {
