@@ -1,0 +1,254 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<head>
+    <style>
+        body{
+            background-color:#fff;
+            margin: 0px;
+            height: 100%;
+            overflow: hidden;
+			font-family:"Segoe UI";
+        }
+        #lottie{
+            background-color:transparent;
+            width:40%;
+            height:50%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,+1);
+            text-align: center;
+			z-index:-1;
+            opacity: 1;
+        }
+		@media only screen and (max-width: 600px) {
+    #lottie {
+        white-space: nowrap;
+        width: 85%;
+    }
+}  
+
+		.button {
+		opacity: 1;
+		transition: opacity 1s; 
+		position:relative; 
+		margin-top:-5%;
+		height:50px;
+		width:120px;
+		display: inline-block;
+		font-size: 16px;
+		cursor: pointer;
+		z-index:1;
+		text-align: center;
+	    font-weight: bold;
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #F523B1;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #C41C8E;
+		}
+
+		.button:hover {background-color: #EA69C0}
+		
+		.button:active {
+		background-color: #F523B1;
+		box-shadow: 0 5px #C41C8E;
+		transform: translateY(4px);
+		}
+
+
+
+
+
+    </style>
+</head>
+<body>	
+<!--lottie player/library -->	
+<script type="text/javascript" src="lottie.js"></script>
+	
+<!-- animation is stored in a variable from this file -->	
+<script type="text/javascript" src="animations/all.json"></script>
+<script type="text/javascript" src="animations/startSpinAnimation.json"></script>
+<script type="text/javascript" src="animations/spinAnimation.json"></script>
+<script type="text/javascript" src="animations/endAnimation.json"></script>
+<p></p>
+<center>
+	
+<!-- lottie container for the animation-->	
+<div id="lottie"  style="margin-top:-5">
+
+</div>
+
+	
+<div>
+
+<button class="button" id="playbtn" onclick="animatingGame()">PLAY GAME</button>
+<p></p>
+win : <input type="text" id="win_data" value="12" size="1">
+</div>
+<center>
+
+
+<script>
+
+	var winData;
+	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
+	var hardValues = [12,23,66,3,45,6,19,59,7,49,87];
+	var startValues =[23,45,77];
+
+	var buttonPlay = document.getElementById("playbtn");
+
+	//lottie settings
+   var params = {
+        container: document.getElementById('lottie'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        animationData: startJSON //this value stores the json data from the json file. it is defined in the json file.
+    };
+
+	
+	//init the animation
+        var anim = lottie.loadAnimation(params);
+	
+	/* reset animation with randomise starting values from the pool of hardcoded values 
+	   if the json file is preloaded - this destruction can be avoided */
+	slotTxt();
+	anim.destroy();
+	
+	params.animationData = startJSON; 
+	anim = lottie.loadAnimation(params);
+	
+	
+	function animatingGame(){
+  //button styles
+	buttonPlay.disabled=true;
+  buttonPlay.style="background-color:lightgray;box-shadow:0 5px gray";
+
+	//get wining data from database or in this case from the input
+	winData = document.getElementById("win_data").value;
+	/*
+	set winning data to the last text layers from after effects
+	first param is the index of the text layer in after effects 
+	second param is the new text 
+	*/
+
+	anim.destroy();
+	
+     slotTxt();
+
+	//pass the new animation with the winning data and play it
+	params.animationData = startJSON; 
+  anim = lottie.loadAnimation(params);
+	anim.play();
+	
+	
+	//reset animation after finish
+	anim.addEventListener('complete', function(){
+	
+	anim.destroy();
+
+	//pass the new animation with the winning data and play it
+	params.animationData = midJSON; 
+	params.loop=true;
+  anim = lottie.loadAnimation(params);
+	anim.play();
+	
+	
+	//set new random values to slots for a new game;
+	
+    slotTxt();
+	
+	//how long will it loop - animations is 466.66 ms long and by multiplying with 5 means it will loop 6 times
+	//(loops 5 and then sets loop to false and plays again with event on complete to triger last animation smoothly)
+	var loopLen = 5;
+	setTimeout(function(){
+	 
+	params.loop=false;
+	 anim = lottie.loadAnimation(params);
+	 anim.play();
+	 anim.addEventListener('complete', function(){
+	 anim.destroy();
+	params.animationData = endJSON; 
+  anim = lottie.loadAnimation(params);
+	anim.play();
+	})
+	
+	},466.666*loopLen);
+	clearTimeout();
+	
+	
+	})
+	
+	
+	}
+
+	/*
+	
+	
+	function for manipulating text values of after effects layers
+	first argument is the layer number in after effects
+	second argument is the value  */
+
+	function textAE(n,val,file){
+	//the path to the text prop in the json file - it represents the layer tree in after effects
+	return file.assets[0].layers[n].t.d.k[0].s.t = val;
+	}
+
+	//picks a random value for the other text values from the pool of hardcoded values
+	function slotTxt(n=8){
+//set random values to the text layers in after effects
+	for(var t = 40; t>=14; t-=2){
+	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%",midJSON);
+		
+		}	
+		
+	//text that is not randomised for each file. these are the First text circles in start animation
+	textAE(30,startValues[0]+"%",startJSON);
+	textAE(32,startValues[1]+"%",startJSON);
+	textAE(34,startValues[2]+"%",startJSON);
+	
+	//text that is not randomised for each file. these are the First text circles in spin animation
+	textAE(30,startValues[0]+"%",midJSON);
+	textAE(32,startValues[1]+"%",midJSON);
+	textAE(34,startValues[2]+"%",midJSON);
+	//text that is not randomised for each file. Win text - Last text circles in spin animation
+	textAE(0,winData+"%",midJSON);
+	textAE(6,winData+"%",midJSON);
+	textAE(12,winData+"%",midJSON);
+	//text that is not randomised for each file. Win text - Last text circles in end animation	
+	textAE(0,winData+"%",endJSON);
+	textAE(6,winData+"%",endJSON);
+	textAE(12,winData+"%",endJSON);
+
+	}
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
