@@ -87,9 +87,9 @@ win : <input type="text" id="win_data" value="12" size="1">
 	var winData;
 	// pool of hardcoded values - if you want to add or remove - pass the length of the array as a argument in slotsTxt
 	var hardValues = [12,23,66,3,45,6,19,59,7,49,87];
-	
+	var startValues =[23,45,77];
 	var buttonPlay = document.getElementById("playbtn");
-	
+
 	//lottie settings
    var params = {
         container: document.getElementById('lottie'),
@@ -99,15 +99,18 @@ win : <input type="text" id="win_data" value="12" size="1">
         animationData: startJSON //this value stores the json data from the json file. it is defined in the json file.
     };
 
-
 	
+
 	//init the animation
         var anim = lottie.loadAnimation(params);
 	
 	/* reset animation with randomise starting values from the pool of hardcoded values 
 	   if the json file is preloaded - this destruction can be avoided */
 	slotTxt();
+
+	
 	anim.destroy();
+	
 	params.animationData = startJSON; 
 	anim = lottie.loadAnimation(params);
 	
@@ -121,12 +124,11 @@ win : <input type="text" id="win_data" value="12" size="1">
 	first param is the index of the text layer in after effects 
 	second param is the new text 
 	*/
+
 	anim.destroy();
 	
+     slotTxt();
 
-	textAE(0,winData+"%",midJSON);
-	textAE(6,winData+"%",midJSON);
-	textAE(12,winData+"%",midJSON);
 	//pass the new animation with the winning data and play it
 	params.animationData = midJSON; 
     anim = lottie.loadAnimation(params);
@@ -138,17 +140,13 @@ win : <input type="text" id="win_data" value="12" size="1">
 	
 	anim.destroy();
 
-	textAE(0,winData+"%",endJSON);
-	textAE(6,winData+"%",endJSON);
-	textAE(12,winData+"%",endJSON);
-	
 	//pass the new animation with the winning data and play it
 	params.animationData = endJSON; 
     anim = lottie.loadAnimation(params);
 	anim.play();
 	//set new random values to slots for a new game;
 
-	slotTxt();
+    slotTxt();
 	})
 
 	}
@@ -166,10 +164,29 @@ win : <input type="text" id="win_data" value="12" size="1">
 	//picks a random value for the other text values from the pool of hardcoded values
 	function slotTxt(n=8){
 	//set random values to the text layers in after effects
-	for(var t = 18; t>=0; t-=2){
+	for(var t = 40; t>=14; t-=2){
 	textAE(t,hardValues[Math.floor((Math.random() * n))] + "%",midJSON);
+		
 		}	
-
+		
+	//text that is not randomised for each file. these are the First text circles in start animation
+	textAE(30,startValues[0]+"%",startJSON);
+	textAE(32,startValues[1]+"%",startJSON);
+	textAE(34,startValues[2]+"%",startJSON);
+	
+	//text that is not randomised for each file. these are the First text circles in spin animation
+	textAE(30,startValues[0]+"%",midJSON);
+	textAE(32,startValues[1]+"%",midJSON);
+	textAE(34,startValues[2]+"%",midJSON);
+	//text that is not randomised for each file. Win text - Last text circles in spin animation
+	textAE(0,winData+"%",midJSON);
+	textAE(6,winData+"%",midJSON);
+	textAE(12,winData+"%",midJSON);
+	//text that is not randomised for each file. Win text - Last text circles in end animation	
+	textAE(0,winData+"%",endJSON);
+	textAE(6,winData+"%",endJSON);
+	textAE(12,winData+"%",endJSON);
+	
 	}
 
 	
